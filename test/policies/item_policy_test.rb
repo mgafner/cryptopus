@@ -3,33 +3,22 @@ require 'test_helper'
 class ItemPolicyTest < PolicyTest
   context '#show' do
     test 'teammember can show item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      assert_permit bob, item1, :show?
+      require 'pry'; binding.pry
+      assert_permit bob, item, :show?
     end
 
     test 'non teammember cannot show item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      refute_permit alice, item1, :show?
+      refute_permit alice, item, :show?
     end
   end
 
   context '#new' do
     test 'teammember can create a new item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      assert_permit bob, item1, :new?
+      assert_permit bob, item, :new?
     end
 
     test 'non teammember cannot create a new item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      refute_permit alice, item1, :new?
+      refute_permit alice, item, :new?
     end
   end
 
@@ -45,27 +34,21 @@ class ItemPolicyTest < PolicyTest
   
   context '#destroy' do
     test 'teammember can destroy item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      assert_permit bob, item1, :destroy?
+      assert_permit bob, item, :destroy?
     end
 
     test 'non teammember cannot destroy item' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      refute_permit alice, item1, :destroy?
+      refute_permit alice, item, :destroy?
     end
   end
 
   private
   
   def account
-    Account.find_by(id: 185855917)
+    Account.find_by(accountname: 'account2')
   end
 
-  def item1
-    items(:item1)
+  def item
+    Fabricate(:item, account: account, team_password: 'password')
   end
 end
