@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     teams = policy_scope Team
