@@ -203,6 +203,18 @@ de:
     description:
       private: Admins haben keinen Zugriff wenn angewählt
 
+  profile:
+    index:
+      title: "Profil von %{label}"
+      username: Benutzername
+      description: Beschreibung
+      teams: Teams
+      valid_until: Gültig bis
+      valid_for: Gültig für
+      last_login_at: Letztes Login um
+      last_login_from: Letztes Login von
+      token: Token
+
   flashes:
     api:
       admin:

@@ -1,0 +1,30 @@
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+%h1= t '.title', label: @current_user.label
+
+%table.table.table-striped
+  %tr
+    %th= t '.username'
+    %th= t '.description'
+    %th= t '.teams'
+    %th= t '.valid_until'
+    %th= t '.valid_for'
+    %th= t '.last_login_at'
+    %th= t '.last_login_from'
+    %th= t '.token'
+  - @api_users.each do |api_user|
+    %tr{class: "#{cycle( 'odd', 'even' )}"}
+      %td= api_user.username
+      %td= api_user.description
+      %td= UserProfile::ApiUsers::Teams.new(api_user).render
+      %td= api_user.valid_until
+      %td= api_user.valid_for
+      %td= api_user.last_login_at
+      %td= api_user.last_login_from
+      %td.field
+        %a.password-link{href: "#"}= t '.show_password'
+        .result-password.select-click
+          %input#cleartext_password.password-hidden.form-control{readonly: "readonly", type: "text", value: "#{api_user.send(:decrypt_token, session[:private_key])}"}/

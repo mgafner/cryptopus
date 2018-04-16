@@ -9,23 +9,28 @@ class app.Account
   constructor: () ->
     bind.call()
 
-  showPassword = (e) ->
-    passLink = $(e.target)
-    passInput = passLink.next('.password-hidden')
-    passLink.hide()
-    $('.result-password').css 'top', '0px'
-    $('.result-password').css 'padding-bottom', '48px'
-    passInput.removeClass('hide')
+  showPassword = (password_link) ->
+    debugger
+    password_input = password_link.next('.password-hidden')
+    # password_link.hide()
+    debugger
+    result_password = password_link.next('.result-password')
+    result_password.css 'top', '0px'
+    debugger
+    result_password.css 'padding-bottom', '48px'
+    debugger
+    password_input.removeClass('hide')
+    debugger
     setTimeout (->
-      passInput.select()
+      password_input.select()
       return
     ), 80
 
     setTimeout (->
       $('.result-password').css 'top', '-48px'
       $('.result-password').css 'padding-bottom', '0px'
-      passLink.show()
-      passInput.addClass 'hide'
+      password_link.show()
+      password_input.addClass 'hide'
       return
     ), 5000
 
@@ -40,7 +45,10 @@ class app.Account
     $(document).ready(ready)
     $(document).on 'click', '.password-link', (e) ->
       e.preventDefault()
-      showPassword(e)
+      $(this).hide()
+      debugger
+      password_link = $(this)
+      showPassword(password_link)
 
     $(document).on 'click', '.clip_button', (e) ->
       app.AccountHelper.showCopyMessage(e, '.clip_button')
